@@ -1,6 +1,8 @@
 package com.andreia.bootcampsantander.controller;
 
 import com.andreia.bootcampsantander.dto.StockDTO;
+import com.andreia.bootcampsantander.service.StockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,15 @@ import java.util.List;
 @RequestMapping (value = "/stock")
 public class StockController {
 
+    @Autowired
+    private StockService stockService;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> save(@Valid @RequestBody StockDTO dto){
-        return ResponseEntity.ok(dto);
+
+        return ResponseEntity.ok(stockService.save(dto));
     }
+
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> update(@Valid @RequestBody StockDTO dto){
         return ResponseEntity.ok(dto);
